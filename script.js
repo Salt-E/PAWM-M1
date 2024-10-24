@@ -6,61 +6,71 @@ burgerMenu.addEventListener('click', () => {
   menu.classList.toggle('show');
 });
 
-// Drag-and-drop logic for latihan 2: basic function
+// Fungsi untuk menangani event drag dan touch pada desktop dan mobile
+function handleDragStart(e) {
+  this.classList.add('dragging');
+  if (e.type === 'touchstart') {
+    const touch = e.touches[0];
+    this.dataset.touchStartX = touch.clientX;
+    this.dataset.touchStartY = touch.clientY;
+  }
+}
+
+function handleDragEnd(e) {
+  this.classList.remove('dragging');
+}
+
+// Fungsi untuk menangani event touchmove di mobile
+function handleTouchMove(e) {
+  const touch = e.touches[0];
+  const element = document.querySelector('.dragging');
+  const dropzone = document.elementFromPoint(touch.clientX, touch.clientY);
+
+  if (dropzone && dropzone.classList.contains('dropzone')) {
+    e.preventDefault();
+  }
+}
+
+// Menangani pen-drop-an elemen pada dropzone
+function handleDrop(e) {
+  e.preventDefault();
+  const dragging = document.querySelector('.dragging');
+  const dropzone = e.target;
+  
+  if (dropzone && dropzone.classList.contains('dropzone')) {
+    dropzone.appendChild(dragging);
+  }
+}
+
+// Menambahkan event listener untuk elemen yang bisa di-drag
+function addDragAndTouchListeners(draggableElements, dropzone) {
+  draggableElements.forEach(draggable => {
+    // Event listener untuk drag pada desktop
+    draggable.addEventListener('dragstart', handleDragStart);
+    draggable.addEventListener('dragend', handleDragEnd);
+    
+    // Event listener untuk touch pada mobile
+    draggable.addEventListener('touchstart', handleDragStart);
+    draggable.addEventListener('touchmove', handleTouchMove);
+    draggable.addEventListener('touchend', handleDragEnd);
+  });
+
+  // Event listener untuk dropzone
+  dropzone.addEventListener('dragover', (e) => e.preventDefault()); // Untuk mendukung desktop
+  dropzone.addEventListener('drop', handleDrop); // Untuk mendukung desktop
+  dropzone.addEventListener('touchend', handleDrop); // Untuk mendukung mobile
+}
+
+// Inisialisasi drag and drop untuk latihan penjumlahan dan if-else
 const penjumlahanDraggables = document.querySelectorAll('#draggable-elements-penjumlahan .draggable');
 const penjumlahanDropzone = document.getElementById('dropzone-penjumlahan');
 
-penjumlahanDraggables.forEach(draggable => {
-  draggable.addEventListener('dragstart', () => {
-    draggable.classList.add('dragging');
-  });
-
-  draggable.addEventListener('dragend', () => {
-    draggable.classList.remove('dragging');
-  });
-});
-
-penjumlahanDropzone.addEventListener('dragover', (e) => {
-  e.preventDefault();
-  const dragging = document.querySelector('.dragging');
-  // Pastikan hanya elemen penjumlahan yang bisa didrop di sini
-  if (dragging && dragging.id.startsWith('penjumlahan-')) {
-    const afterElement = getDragAfterElement(penjumlahanDropzone, e.clientY);
-    if (afterElement == null) {
-      penjumlahanDropzone.appendChild(dragging);
-    } else {
-      penjumlahanDropzone.insertBefore(dragging, afterElement);
-    }
-  }
-});
-
-document.getElementById('check-code-btn-penjumlahan').addEventListener('click', function () {
-  const order = [...penjumlahanDropzone.querySelectorAll('.draggable')].map(e => e.id);
-  const correctOrder = ['penjumlahan-line1', 'penjumlahan-line2', 'penjumlahan-line3', 'penjumlahan-line4'];
-  const result = document.getElementById('result-penjumlahan');
-
-  if (JSON.stringify(order) === JSON.stringify(correctOrder)) {
-    result.textContent = 'Susunan kode benar!';
-    result.style.color = '#45a049';
-  } else {
-    result.textContent = 'Susunan kode salah, coba lagi.';
-    result.style.color = 'red';
-  }
-});
-
-// Drag-and-drop logic for latihan 3: if-else
 const ifelseDraggables = document.querySelectorAll('#draggable-elements-ifelse .draggable');
 const ifelseDropzone = document.getElementById('dropzone-ifelse');
 
-ifelseDraggables.forEach(draggable => {
-  draggable.addEventListener('dragstart', () => {
-    draggable.classList.add('dragging');
-  });
-
-  draggable.addEventListener('dragend', () => {
-    draggable.classList.remove('dragging');
-  });
-});
+// Memasang event listener untuk desktop dan mobile
+addDragAndTouchListeners(penjumlahanDraggables, penjumlahanDropzone);
+addDragAndTouchListeners(ifelseDraggables, ifelseDropzone);
 
 ifelseDropzone.addEventListener('dragover', (e) => {
   e.preventDefault();
@@ -73,6 +83,35 @@ ifelseDropzone.addEventListener('dragover', (e) => {
     } else {
       ifelseDropzone.insertBefore(dragging, afterElement);
     }
+  }
+});
+
+penjumlahanDropzone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  const dragging = document.querySelector('.dragging');
+  // Pastikan hanya elemen ifelse yang bisa didrop di sini
+  if (dragging && dragging.id.startsWith('penjumlahan-')) {
+    const afterElement = getDragAfterElement(penjumlahanDropzone, e.clientY);
+    if (afterElement == null) {
+      penjumlahanDropzone.appendChild(dragging);
+    } else {
+      penjumlahanDropzone.insertBefore(dragging, afterElement);
+    }
+  }
+});
+
+// Fungsi untuk mengecek urutan elemen yang benar untuk latihan penjumlahan
+document.getElementById('check-code-btn-penjumlahan').addEventListener('click', function () {
+  const order = [...penjumlahanDropzone.querySelectorAll('.draggable')].map(e => e.id);
+  const correctOrder = ['penjumlahan-line1', 'penjumlahan-line2', 'penjumlahan-line3', 'penjumlahan-line4'];
+  const result = document.getElementById('result-penjumlahan');
+
+  if (JSON.stringify(order) === JSON.stringify(correctOrder)) {
+    result.textContent = 'Susunan kode benar!';
+    result.style.color = '#45a049';
+  } else {
+    result.textContent = 'Susunan kode salah, coba lagi.';
+    result.style.color = 'red';
   }
 });
 
