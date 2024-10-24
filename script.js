@@ -5,19 +5,6 @@ const menu = document.getElementById('menu');
 burgerMenu.addEventListener('click', () => {
   menu.classList.toggle('show');
 });
-// Fungsi untuk simulasi python
-document.getElementById('run-code-btn').addEventListener('click', function () {
-    const code = document.getElementById('python-code').value;
-    const outputElement = document.getElementById('output');
-  
-    // interpreter untuk demo
-    if (code.includes('print')) {
-      outputElement.textContent = eval(code.replace('print', ''));
-    } else {
-      outputElement.textContent = "Hanya mendukung fungsi 'print' saat ini.";
-    }
-  });
-  
 
 // Drag-and-drop logic for latihan 2: basic function
 const penjumlahanDraggables = document.querySelectorAll('#draggable-elements-penjumlahan .draggable');

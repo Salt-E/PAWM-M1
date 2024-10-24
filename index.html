@@ -19,7 +19,8 @@
       <ul id="menu">
         <li><a href="#homepage">Homepage</a></li>
         <li><a href="#materi">Materi</a></li>
-        <li><a href="#latihan">Latihan</a></li>
+        <li><a href="#latihan">Review</a></li>
+        <li><a href="#hands-on">Hands-on</a></li>
       </ul>
       <div class="burger-menu" id="burger-menu">
         <img src="burger-bar.png" alt="burger icon">
@@ -188,61 +189,7 @@ else:
 
     <section id="latihan">
       <section id="latihan">
-        <h2>Latihan 1: Coba Jalankan Python</h2>
-        <p>Tulis kode Python di bawah ini, lalu klik "Jalankan Kode" untuk melihat hasilnya.</p>
-  
-        <textarea id="python-code" rows="10" placeholder="print('Hello, World!')"></textarea>
-        <button id="run-code-btn">Jalankan Kode</button>
-        <div id="output-container">
-          <h3>Output:</h3>
-          <pre id="output"></pre>
-        </div>
-        
-        <h2>Latihan 2: Basic Python Function</h2>
-        <p>Drag and drop blok kode Python di bawah ini ke dalam urutan yang benar untuk menjalankan fungsi penjumlahan:</p>
-  
-        <div class="drag-drop">
-          <!-- Ganti ID agar unik -->
-          <div id="draggable-elements-penjumlahan">
-            <div class="draggable" draggable="true" id="penjumlahan-line4">print(hasil)</div>
-            <div class="draggable" draggable="true" id="penjumlahan-line1">def penjumlahan(a, b):</div>
-            <div class="draggable" draggable="true" id="penjumlahan-line3">hasil = penjumlahan(3, 4)</div>
-            <div class="draggable" draggable="true" id="penjumlahan-line2">return a + b</div> 
-          </div>
-          
-          <!-- Ganti ID agar unik -->
-          <div id="dropzone-penjumlahan">
-            <p>Susun kode di sini</p>
-          </div>
-        </div>
-        <button id="check-code-btn-penjumlahan">Cek Jawaban</button>
-        <div id="result-penjumlahan"></div>
-  
-        <h2>Latihan 3: Basic If-else Case</h2>
-        <p>Program akan memberi output A jika nilai di atas atau sama dengan 80, dan B jika di bawah nilai tersebut</p>
-        <p>Seret perintah Python di bawah ini untuk menyusun kode if-else yang benar:</p>
-        <div class="drag-drop">
-          <!-- Ganti ID agar unik -->
-          <div id="draggable-elements-ifelse">
-            <div class="draggable" draggable="true" id="ifelse-line1">else:</div>
-            <div class="draggable" draggable="true" id="ifelse-line2">if nilai >= 80:</div>
-            <div class="draggable" draggable="true" id="ifelse-line3">print("Nilai A")</div>
-            <div class="draggable" draggable="true" id="ifelse-line4">print("Nilai B")</div>
-          </div>
-          
-          <!-- Ganti ID agar unik -->
-          <div id="dropzone-ifelse">
-            <p>Susun kode di sini</p>
-          </div>
-        </div>
-  
-        <button id="check-code-btn-ifelse">Cek Jawaban</button>
-        <div id="result-ifelse"></div>
-  
-      </section>
-  
-      <section id="latihan-pg">
-        <h2>Soal Pilihan Ganda</h2>
+        <h2>Review Materi!</h2>
           <form id="quiz-pg">
               <p>1. Tipe data apa yang digunakan untuk menyimpan bilangan desimal?</p>
               <input type="radio" id="q1a" name="q1" value="Integer">
@@ -288,6 +235,60 @@ else:
               <p id="pg-result"></p>
           </form>
       </section>
+
+      <section id="hands-on">
+        <h2>Latihan 1: Basic Python Function</h2>
+        <p>Drag and drop blok kode Python di bawah ini ke dalam urutan yang benar untuk menjalankan fungsi penjumlahan:</p>
+  
+        <div class="drag-drop">
+          <!-- Ganti ID agar unik -->
+          <div id="draggable-elements-penjumlahan">
+            <div class="draggable" draggable="true" id="penjumlahan-line4">print(hasil)</div>
+            <div class="draggable" draggable="true" id="penjumlahan-line1">def penjumlahan(a, b):</div>
+            <div class="draggable" draggable="true" id="penjumlahan-line3">hasil = penjumlahan(3, 4)</div>
+            <div class="draggable" draggable="true" id="penjumlahan-line2">return a + b</div> 
+          </div>
+          
+          <!-- Ganti ID agar unik -->
+          <div id="dropzone-penjumlahan">
+            <p>Susun kode di sini</p>
+          </div>
+        </div>
+        <button id="check-code-btn-penjumlahan">Cek Jawaban</button>
+        <div id="result-penjumlahan"></div>
+  
+        <h2>Latihan 2: Basic If-else Case</h2>
+        <p>Program akan memberi output A jika nilai di atas atau sama dengan 80, dan B jika di bawah nilai tersebut</p>
+        <p>Seret perintah Python di bawah ini untuk menyusun kode if-else yang benar:</p>
+        <div class="drag-drop">
+          <!-- Ganti ID agar unik -->
+          <div id="draggable-elements-ifelse">
+            <div class="draggable" draggable="true" id="ifelse-line1">else:</div>
+            <div class="draggable" draggable="true" id="ifelse-line2">if nilai >= 80:</div>
+            <div class="draggable" draggable="true" id="ifelse-line3">print("Nilai A")</div>
+            <div class="draggable" draggable="true" id="ifelse-line4">print("Nilai B")</div>
+          </div>
+          
+          <!-- Ganti ID agar unik -->
+          <div id="dropzone-ifelse">
+            <p>Susun kode di sini</p>
+          </div>
+        </div>
+  
+        <button id="check-code-btn-ifelse">Cek Jawaban</button>
+        <div id="result-ifelse"></div>
+        
+        <h2>Latihan 3: Coba Jalankan Python</h2>
+        <p>Tulis kode Python di bawah ini, lalu klik "Jalankan Kode" untuk melihat hasilnya.</p>
+        <p>Jika sudah berhasil, coba juga buat program lain dalam bahasa Python yang sudah kamu pelajari sesuai kreativitasmu!</p>
+  
+        <textarea id="python-code" rows="10" placeholder="print('Hello, World!')"></textarea>
+        <button id="run-code-btn">Jalankan Kode</button>
+        <div id="output-container">
+          <h3>Output:</h3>
+          <pre id="output"></pre>
+        </div>
+      </section>
   </main>
 
   <footer>
@@ -295,5 +296,45 @@ else:
   </footer>
 
   <script src="script.js"></script>
+  <!-- Script untuk membuat python compiler pada web -->
+  <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
+  <script>
+      async function loadPyodideAndRun() {
+      // Load Pyodide
+      let pyodide = await loadPyodide();
+      console.log("Pyodide loaded");
+
+      // Event listener untuk tombol
+      document.getElementById('run-code-btn').addEventListener('click', async function () {
+        const code = document.getElementById('python-code').value;
+        const outputElement = document.getElementById('output');
+
+        // Tangkap output dari print menggunakan sys.stdout
+        try {
+          pyodide.runPython(`
+            import sys
+            from io import StringIO
+            
+            # Tangkap output dari print
+            sys.stdout = mystdout = StringIO()
+          `);
+
+          // Jalankan kode Python dari textarea
+          await pyodide.runPythonAsync(code);
+
+          // Dapatkan output dari sys.stdout
+          const output = pyodide.runPython('mystdout.getvalue()');
+          outputElement.textContent = output;
+        } catch (error) {
+          // Tangani error syntax atau eksekusi dan tampilkan di output
+          outputElement.textContent = "Error: " + error.message;
+          console.error("Execution error:", error);
+        }
+      });
+    }
+
+    // Muat Pyodide saat halaman di-load
+    loadPyodideAndRun();
+  </script>
 </body>
 </html>
