@@ -6,71 +6,61 @@ burgerMenu.addEventListener('click', () => {
   menu.classList.toggle('show');
 });
 
-// Fungsi untuk menangani event drag dan touch pada desktop dan mobile
-function handleDragStart(e) {
-  this.classList.add('dragging');
-  if (e.type === 'touchstart') {
-    const touch = e.touches[0];
-    this.dataset.touchStartX = touch.clientX;
-    this.dataset.touchStartY = touch.clientY;
-  }
-}
-
-function handleDragEnd(e) {
-  this.classList.remove('dragging');
-}
-
-// Fungsi untuk menangani event touchmove di mobile
-function handleTouchMove(e) {
-  const touch = e.touches[0];
-  const element = document.querySelector('.dragging');
-  const dropzone = document.elementFromPoint(touch.clientX, touch.clientY);
-
-  if (dropzone && dropzone.classList.contains('dropzone')) {
-    e.preventDefault();
-  }
-}
-
-// Menangani pen-drop-an elemen pada dropzone
-function handleDrop(e) {
-  e.preventDefault();
-  const dragging = document.querySelector('.dragging');
-  const dropzone = e.target;
-  
-  if (dropzone && dropzone.classList.contains('dropzone')) {
-    dropzone.appendChild(dragging);
-  }
-}
-
-// Menambahkan event listener untuk elemen yang bisa di-drag
-function addDragAndTouchListeners(draggableElements, dropzone) {
-  draggableElements.forEach(draggable => {
-    // Event listener untuk drag pada desktop
-    draggable.addEventListener('dragstart', handleDragStart);
-    draggable.addEventListener('dragend', handleDragEnd);
-    
-    // Event listener untuk touch pada mobile
-    draggable.addEventListener('touchstart', handleDragStart);
-    draggable.addEventListener('touchmove', handleTouchMove);
-    draggable.addEventListener('touchend', handleDragEnd);
-  });
-
-  // Event listener untuk dropzone
-  dropzone.addEventListener('dragover', (e) => e.preventDefault()); // Untuk mendukung desktop
-  dropzone.addEventListener('drop', handleDrop); // Untuk mendukung desktop
-  dropzone.addEventListener('touchend', handleDrop); // Untuk mendukung mobile
-}
-
-// Inisialisasi drag and drop untuk latihan penjumlahan dan if-else
+// Drag-and-drop logic for latihan 2: basic function
 const penjumlahanDraggables = document.querySelectorAll('#draggable-elements-penjumlahan .draggable');
 const penjumlahanDropzone = document.getElementById('dropzone-penjumlahan');
 
+penjumlahanDraggables.forEach(draggable => {
+  draggable.addEventListener('dragstart', () => {
+    draggable.classList.add('dragging');
+  });
+
+  draggable.addEventListener('dragend', () => {
+    draggable.classList.remove('dragging');
+  });
+});
+
+penjumlahanDropzone.addEventListener('dragover', (e) => {
+  e.preventDefault();
+  const dragging = document.querySelector('.dragging');
+  // Pastikan hanya elemen penjumlahan yang bisa didrop di sini
+  if (dragging && dragging.id.startsWith('penjumlahan-')) {
+    const afterElement = getDragAfterElement(penjumlahanDropzone, e.clientY);
+    if (afterElement == null) {
+      penjumlahanDropzone.appendChild(dragging);
+    } else {
+      penjumlahanDropzone.insertBefore(dragging, afterElement);
+    }
+  }
+});
+
+document.getElementById('check-code-btn-penjumlahan').addEventListener('click', function () {
+  const order = [...penjumlahanDropzone.querySelectorAll('.draggable')].map(e => e.id);
+  const correctOrder = ['penjumlahan-line1', 'penjumlahan-line2', 'penjumlahan-line3', 'penjumlahan-line4'];
+  const result = document.getElementById('result-penjumlahan');
+
+  if (JSON.stringify(order) === JSON.stringify(correctOrder)) {
+    result.textContent = 'Susunan kode benar!';
+    result.style.color = '#45a049';
+  } else {
+    result.textContent = 'Susunan kode salah, coba lagi.';
+    result.style.color = 'red';
+  }
+});
+
+// Drag-and-drop logic for latihan 3: if-else
 const ifelseDraggables = document.querySelectorAll('#draggable-elements-ifelse .draggable');
 const ifelseDropzone = document.getElementById('dropzone-ifelse');
 
-// Memasang event listener untuk desktop dan mobile
-addDragAndTouchListeners(penjumlahanDraggables, penjumlahanDropzone);
-addDragAndTouchListeners(ifelseDraggables, ifelseDropzone);
+ifelseDraggables.forEach(draggable => {
+  draggable.addEventListener('dragstart', () => {
+    draggable.classList.add('dragging');
+  });
+
+  draggable.addEventListener('dragend', () => {
+    draggable.classList.remove('dragging');
+  });
+});
 
 ifelseDropzone.addEventListener('dragover', (e) => {
   e.preventDefault();
@@ -86,34 +76,100 @@ ifelseDropzone.addEventListener('dragover', (e) => {
   }
 });
 
-penjumlahanDropzone.addEventListener('dragover', (e) => {
+// Handle drag-and-drop untuk mobile
+// Tambahkan variabel untuk menyimpan elemen yang sedang di-touch
+let touchDragging = null;
+
+// Fungsi helper untuk mendapatkan koordinat touch
+function getTouchCoordinates(e) {
+  if (e.touches && e.touches.length) {
+    return {
+      clientX: e.touches[0].clientX,
+      clientY: e.touches[0].clientY
+    };
+  }
+  return {
+    clientX: e.clientX,
+    clientY: e.clientY
+  };
+}
+
+// Tambahkan touch event listeners untuk draggable elements
+function addTouchListeners(draggable) {
+  draggable.addEventListener('touchstart', handleTouchStart, { passive: false });
+  draggable.addEventListener('touchmove', handleTouchMove, { passive: false });
+  draggable.addEventListener('touchend', handleTouchEnd, { passive: false });
+}
+
+// Terapkan touch listeners ke semua elemen draggable
+penjumlahanDraggables.forEach(draggable => {
+  addTouchListeners(draggable);
+});
+
+ifelseDraggables.forEach(draggable => {
+  addTouchListeners(draggable);
+});
+
+function handleTouchStart(e) {
   e.preventDefault();
-  const dragging = document.querySelector('.dragging');
-  // Pastikan hanya elemen ifelse yang bisa didrop di sini
-  if (dragging && dragging.id.startsWith('penjumlahan-')) {
-    const afterElement = getDragAfterElement(penjumlahanDropzone, e.clientY);
+  const touch = e.touches[0];
+  touchDragging = this;
+  this.classList.add('dragging');
+  
+  // Simpan posisi awal touch
+  this.dataset.startX = touch.clientX - this.offsetLeft;
+  this.dataset.startY = touch.clientY - this.offsetTop;
+  
+  // Tambahkan styling saat drag
+  this.style.position = 'absolute';
+  this.style.zIndex = '1000';
+  this.style.opacity = '0.8';
+}
+
+function handleTouchMove(e) {
+  e.preventDefault();
+  if (!touchDragging) return;
+  
+  const touch = e.touches[0];
+  const dropzone = touchDragging.id.startsWith('penjumlahan-') 
+    ? penjumlahanDropzone 
+    : ifelseDropzone;
+  
+  // Update posisi elemen
+  touchDragging.style.left = touch.clientX - touchDragging.dataset.startX + 'px';
+  touchDragging.style.top = touch.clientY - touchDragging.dataset.startY + 'px';
+  
+  // Cek apakah touch berada di atas dropzone
+  const dropzoneRect = dropzone.getBoundingClientRect();
+  if (touch.clientY >= dropzoneRect.top && 
+      touch.clientY <= dropzoneRect.bottom &&
+      touch.clientX >= dropzoneRect.left && 
+      touch.clientX <= dropzoneRect.right) {
+    
+    const afterElement = getDragAfterElement(dropzone, touch.clientY);
     if (afterElement == null) {
-      penjumlahanDropzone.appendChild(dragging);
+      dropzone.appendChild(touchDragging);
     } else {
-      penjumlahanDropzone.insertBefore(dragging, afterElement);
+      dropzone.insertBefore(touchDragging, afterElement);
     }
   }
-});
+}
 
-// Fungsi untuk mengecek urutan elemen yang benar untuk latihan penjumlahan
-document.getElementById('check-code-btn-penjumlahan').addEventListener('click', function () {
-  const order = [...penjumlahanDropzone.querySelectorAll('.draggable')].map(e => e.id);
-  const correctOrder = ['penjumlahan-line1', 'penjumlahan-line2', 'penjumlahan-line3', 'penjumlahan-line4'];
-  const result = document.getElementById('result-penjumlahan');
 
-  if (JSON.stringify(order) === JSON.stringify(correctOrder)) {
-    result.textContent = 'Susunan kode benar!';
-    result.style.color = '#45a049';
-  } else {
-    result.textContent = 'Susunan kode salah, coba lagi.';
-    result.style.color = 'red';
-  }
-});
+function handleTouchEnd(e) {
+  e.preventDefault();
+  if (!touchDragging) return;
+  
+  // Reset styling
+  touchDragging.classList.remove('dragging');
+  touchDragging.style.position = '';
+  touchDragging.style.zIndex = '';
+  touchDragging.style.opacity = '';
+  touchDragging.style.left = '';
+  touchDragging.style.top = '';
+  
+  touchDragging = null;
+}
 
 document.getElementById('check-code-btn-ifelse').addEventListener('click', function () {
   const order = [...ifelseDropzone.querySelectorAll('.draggable')].map(e => e.id);
