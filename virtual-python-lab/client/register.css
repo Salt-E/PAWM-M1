@@ -1,0 +1,215 @@
+/* Header Style */
+header {
+    background-color: #1b2838; 
+    padding: 1px;
+    text-align: center;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  
+  .sticky-header {
+    position: sticky;
+    top: 0;
+    max-width: 100%;
+    background-color:  #1b2838;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    z-index: 100;
+    height: 50px;
+  }
+  
+  
+  .sticky-header .logo img {
+    height: 40px;
+  }
+  
+  .sticky-header nav ul {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    transition: all 0.3s ease;
+  }
+  
+  
+  .sticky-header nav ul li {
+    position: relative; 
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    transition: color 0.3s ease;
+  }
+  
+  /* underline animation */
+  .sticky-header nav ul li::after {
+    content: '';
+    position: absolute;
+    width: 0;
+    height: 2px; /* Tebal garis bisa diatur */
+    bottom: 0;
+    left: 50%;
+    background-color: #1b2838; /* Warna garis */
+    transition: all 0.3s ease;
+  }
+  
+  .sticky-header nav ul li:hover::after {
+    width: 100%;
+    left: 0;
+    background-color: #66c0f4; /* Warna tidak berubah saat hover */
+  }
+  
+  
+  .sticky-header nav ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: color 0.3s ease;
+  }
+  
+  .sticky-header nav ul li:hover a {
+    color: #66c0f4;
+  }
+  
+  .burger-menu img {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    height: auto;
+    width: 3rem;
+  }
+  
+  
+  .logo-name {
+    justify-content: center;
+    display: flex;
+    color: #f4f4f4;
+  }
+  /* Responsive burger menu */
+  @media (max-width: 768px) {
+    .sticky-header nav ul {
+      display: none;
+      flex-direction: column;
+      background-color:  #1b2838;
+      position: absolute;
+      top: 50px;
+      right: 0;
+      width: 100%;
+      padding: 10px 0;
+      align-items: center;
+    }
+  
+    .sticky-header nav ul.show {
+      display: flex;
+    }
+  
+    .burger-menu img{
+      display: flex;
+    }
+  }
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box; 
+  } 
+  
+  body {
+    font-family: Arial, sans-serif;
+    background-color: #2a475e;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+/* Container register */
+.register-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    padding: 20px;
+}
+
+/* Kotak register */
+.register-box {
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #e1e4e8;
+    border-radius: 6px;
+    padding: 24px;
+    box-shadow: 0 1px 3px rgba(27,31,35,.12), 0 8px 24px rgba(27,31,35,.12);
+    text-align: center;
+}
+
+/* Judul register */
+.register-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: #24292e;
+    margin-bottom: 16px;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 8px;
+  margin-top: 4px;
+  font-size: 0.875rem;
+  border: 1px solid #e1e4e8;
+  border-radius: 6px;
+  background-color: #fafbfc;
+}
+
+input[type="email"]:focus,
+input[type="password"]:focus {
+  outline: none;
+  border-color: #0366d6;
+  box-shadow: 0 0 0 3px rgba(3, 102, 214, 0.3);
+}
+
+/* Tombol register */
+.register-button {
+    width: 100%;
+    padding: 10px;
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: #fff;
+    background-color: #2ea44f;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.register-button:hover {
+    background-color: #22863a;
+}
+
+.register-message {
+    margin-top: 12px;
+    font-size: 0.875rem;
+    color: red;
+}
+
+/* Link login */
+.login-link {
+    margin-top: 16px;
+    font-size: 0.875rem;
+    color: #586069;
+}
+
+.login-link a {
+    color: #0366d6;
+    text-decoration: none;
+}
+
+.login-link a:hover {
+    text-decoration: underline;
+}

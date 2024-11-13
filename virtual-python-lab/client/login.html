@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login - Virtual Python Lab</title>
+    <link rel="stylesheet" href="login.css">
+</head>
+<body>
+    
+    <div class="login-container">
+        <div class="login-box">
+            <h1 class="login-title">Sign in to Virtual Python Lab</h1>
+            <form id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" required>
+                </div>
+                <button type="submit" class="login-button">Sign in</button>
+                <p id="loginMessage" class="login-message"></p>
+            </form>
+            <p class="register-link">
+                New to Virtual Python Lab? <a href="register.html">Create an account</a>.
+            </p>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+</body>
+</html>
