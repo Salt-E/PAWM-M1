@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", async () => {
         if (result.success) {
             const user = result.user;
             // Tampilkan email pengguna
-            userEmailElement.textContent = `Welcome, ${user.email}`;
+            userEmailElement.textContent = `Selamat datang, ${user.email}`;
             localStorage.setItem('user_id', user.id);
 
             // Ambil progress dari API
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", async () => {
                     userProgressElement.appendChild(progressText);
                 });
             } else {
-                userProgressElement.textContent = "No progress data available.";
+                userProgressElement.textContent = "Tidak ada data progress yang tersedia.";
             }
         } else {
             alert("Gagal memuat profil. Silakan login ulang.");
