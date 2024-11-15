@@ -1,23 +1,54 @@
 {
-    "version": 2,
-    "builds": [
-      {
-        "src": "client/**/*",
-        "use": "@vercel/static"
-      },
-      {
-        "src": "server/**/*.js",
-        "use": "@vercel/node"
-      }
-    ],
-    "routes": [
-      {
-        "src": "/api/(.*)",
-        "dest": "/server/routes/$1"
-      },
-      {
-        "src": "/(.*)",
-        "dest": "/client/$1"
-      }
-    ]
-  }
+  "version": 2,
+  "builds": [
+    {
+      "src": "server/index.js",
+      "use": "@vercel/node"
+    },
+    {
+      "src": "client/**",
+      "use": "@vercel/static"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "server/index.js"
+    },
+    {
+      "src": "/",
+      "dest": "client/index.html"
+    },
+    {
+      "src": "/dashboard",
+      "dest": "client/dashboard.html"
+    },
+    {
+      "src": "/login",
+      "dest": "client/login.html"
+    },
+    {
+      "src": "/register",
+      "dest": "client/register.html"
+    },
+    {
+      "src": "/(.+\\.js)",
+      "dest": "client/$1"
+    },
+    {
+      "src": "/(.+\\.css)",
+      "dest": "client/$1"
+    },
+    {
+      "src": "/images/(.*)",
+      "dest": "client/images/$1"
+    },
+    {
+      "handle": "filesystem"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "client/index.html"
+    }
+  ]
+}
