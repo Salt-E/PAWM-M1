@@ -148,6 +148,19 @@ header {
     text-align: center;
 }
 
+/* Grup form */
+.form-group {
+  margin-bottom: 16px;
+  text-align: left;
+}
+
+/* Label dan input */
+label {
+  font-size: 0.875rem;
+  color: #24292e;
+  font-weight: 600;
+}
+
 /* Judul register */
 .register-title {
     font-size: 1.25rem;

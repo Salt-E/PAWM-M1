@@ -11,8 +11,9 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, '../client')));
 
 // Routes
-app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', authRoutes);
 app.use('/api/progress', progressRoutes);
+
 
 // Mengarahkan ke halaman utama
 app.get('*', (req, res) => {

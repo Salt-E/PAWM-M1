@@ -1,6 +1,32 @@
-// Burger menu toggle
 const burgerMenu = document.getElementById('burger-menu');
 const menu = document.getElementById('menu');
+const user = localStorage.getItem('user_id')
+
+async function saveProgress(user_id, page, progress, is_completed) {
+  const response = await fetch('/api/progress/save', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ user_id, page, progress, is_completed })
+  });
+  const result = await response.json();
+  if (response.ok) {
+    console.log(result.message);
+  } else {
+    console.log(user_id)
+    console.error(result.error);
+  }
+}
+
+async function loadProgress(user_id, page) {
+  const response = await fetch(`/api/progress/${user_id}/${page}`);
+  if (response.ok) {
+    const data = await response.json();
+    return data;
+  } else {
+    const error = await response.json();
+    console.error(error.message);
+  }
+}
 
 burgerMenu.addEventListener('click', () => {
   menu.classList.toggle('show');
@@ -34,7 +60,7 @@ penjumlahanDropzone.addEventListener('dragover', (e) => {
   }
 });
 
-document.getElementById('check-code-btn-penjumlahan').addEventListener('click', function () {
+document.getElementById('check-code-btn-penjumlahan').addEventListener('click', async function () {
   const order = [...penjumlahanDropzone.querySelectorAll('.draggable')].map(e => e.id);
   const correctOrder = ['penjumlahan-line1', 'penjumlahan-line2', 'penjumlahan-line3', 'penjumlahan-line4'];
   const result = document.getElementById('result-penjumlahan');
@@ -42,11 +68,20 @@ document.getElementById('check-code-btn-penjumlahan').addEventListener('click', 
   if (JSON.stringify(order) === JSON.stringify(correctOrder)) {
     result.textContent = 'Susunan kode benar!';
     result.style.color = '#45a049';
+
+    const userId = `${user}`;  // ID pengguna yang sedang login
+    const page1 = 'basic-function';
+    const progress1 = 100;
+    const isCompleted1 = true;
+
+  // Mengirim progress ke server
+    await saveProgress(userId, page1, progress1, isCompleted1);
   } else {
     result.textContent = 'Susunan kode salah, coba lagi.';
     result.style.color = 'red';
   }
 });
+
 
 // Drag-and-drop logic for latihan 3: if-else
 const ifelseDraggables = document.querySelectorAll('#draggable-elements-ifelse .draggable');
@@ -171,7 +206,7 @@ function handleTouchEnd(e) {
   touchDragging = null;
 }
 
-document.getElementById('check-code-btn-ifelse').addEventListener('click', function () {
+document.getElementById('check-code-btn-ifelse').addEventListener('click', async function () {
   const order = [...ifelseDropzone.querySelectorAll('.draggable')].map(e => e.id);
   const correctOrder = ['ifelse-line2', 'ifelse-line3', 'ifelse-line1', 'ifelse-line4'];
   const result = document.getElementById('result-ifelse');
@@ -179,6 +214,14 @@ document.getElementById('check-code-btn-ifelse').addEventListener('click', funct
   if (JSON.stringify(order) === JSON.stringify(correctOrder)) {
     result.textContent = 'Susunan kode benar!';
     result.style.color = '#45a049';
+
+    const userId = `${user}`;  // ID pengguna yang sedang login
+    const page2 = 'if-else';
+    const progress2 = 100;
+    const isCompleted2 = true;
+
+  // Mengirim progress ke server
+    await saveProgress(userId, page2, progress2, isCompleted2);
   } else {
     result.textContent = 'Susunan kode salah, coba lagi.';
     result.style.color = 'red';
@@ -294,7 +337,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 // Fungsi untuk mengecek jawaban pilihan ganda
-function checkPGAnswers() {
+async function checkPGAnswers() {
   const q1 = document.querySelector('input[name="q1"]:checked');
   const q2 = document.querySelector('input[name="q2"]:checked');
   const q3 = document.querySelector('input[name="q3"]:checked');
@@ -322,29 +365,15 @@ function checkPGAnswers() {
   const resultElement = document.getElementById("pg-result");
   resultElement.textContent = `Skor Anda: ${score}/5`;
   resultElement.style.color = score === 5 ? "#45a049" : "red";
-}
 
-async function saveProgress(userId, page, progress, isCompleted) {
-  const response = await fetch('/api/progress/save', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({ userId, page, progress, isCompleted })
-  });
-  const result = await response.json();
-  if (response.ok) {
-    console.log(result.message);
-  } else {
-    console.error(result.error);
-  }
-}
 
-async function loadProgress(userId, page) {
-  const response = await fetch(`/api/progress/${userId}/${page}`);
-  if (response.ok) {
-    const data = await response.json();
-    return data;
-  } else {
-    const error = await response.json();
-    console.error(error.message);
-  }
+  const userId = `${user}`;  // ID pengguna yang sedang login
+  const page3 = 'pilihan-ganda';
+  const progress3 = (score / 5) * 100;
+  const isCompleted3 = true;
+
+  // Mengirim progress ke server
+  await saveProgress(userId, page3, progress3, isCompleted3);
 }
+  
+

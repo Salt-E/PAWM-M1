@@ -1,4 +1,8 @@
-
+.scroll-container {
+  width: 100%;
+  height: 100vh;
+  overflow: auto; /* Scroll hanya muncul jika konten melampaui area */
+}
 
 /* Header Style */
 header {
@@ -46,25 +50,6 @@ header {
   list-style: none;
   transition: color 0.3s ease;
 }
-
-/* underline animation */
-.sticky-header nav ul li::after {
-  content: '';
-  position: absolute;
-  width: 0;
-  height: 2px; /* Tebal garis bisa diatur */
-  bottom: 0;
-  left: 50%;
-  background-color: #1b2838; /* Warna garis */
-  transition: all 0.3s ease;
-}
-
-.sticky-header nav ul li:hover::after {
-  width: 100%;
-  left: 0;
-  background-color: #66c0f4; /* Warna tidak berubah saat hover */
-}
-
 
 .sticky-header nav ul li a {
   color: white;
@@ -161,7 +146,52 @@ header {
     background-color: #e5c22e;
   }
   
+  /* Logout Button */
+  #logoutBtn {
+    background-color: #e74c3c;
+    color: #ecf0f1;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+  }
   
+  #logoutBtn:hover {
+    background-color: #c0392b;
+  }
+
+  /* dashboard Button */
+  #dashboardBtn {
+    background-color: #2a475e;
+    color: #ecf0f1;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  #dashboardBtn:hover {
+    background-color: #2a475e;
+  }
+  /* login Button */
+  #loginBtn {
+    background-color: #4CAF50;
+    color: #ecf0f1;
+    padding: 8px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+  }
+  
+  #loginBtn:hover {
+    background-color: #45a049;
+  }
 
   main {
     padding: 20px
@@ -209,16 +239,6 @@ header {
     min-height: 100px;
     background-color: #293c55;
     color: #f4f4f4;
-  }
-  
-  #canvas-container {
-    margin-top: 30px;
-  }
-  
-  canvas {
-    border: 1px solid #ece7e7;
-    width: 100%;
-    height: 300px;
   }
   
   footer {

@@ -19,6 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             const result = await response.json();
             if (result.success) {
+                localStorage.setItem('access_token', result.access_token);
                 loginMessage.textContent = "Login berhasil! Mengalihkan...";
                 loginMessage.style.color = "green";
                 setTimeout(() => {

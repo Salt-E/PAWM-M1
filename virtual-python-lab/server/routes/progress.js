@@ -8,22 +8,20 @@ router.post('/save', async (req, res) => {
 
   const { data, error } = await supabase
     .from('user_progress')
-    .upsert({ user_id: userId, page, progress, completed: isCompleted });
+    .upsert({ user_id: userId, page, progress, is_completed: isCompleted });
 
   if (error) return res.status(400).json({ error: error.message });
   res.status(200).json({ message: "Progress saved successfully" });
 });
 
 // Route untuk mengambil progres pengguna
-router.get('/:userId/:page', async (req, res) => {
-  const { userId, page } = req.params;
+router.get('/:user_id', async (req, res) => {
+  const userId = req.params.user_id;
 
   const { data, error } = await supabase
     .from('user_progress')
-    .select('progress, completed')
+    .select('progress, page')
     .eq('user_id', userId)
-    .eq('page', page)
-    .single();
 
   if (error) return res.status(400).json({ error: error.message });
   res.status(200).json(data);
