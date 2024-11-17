@@ -15,8 +15,9 @@
     <nav>
       <ul id="menu">
         <li><button id="dashboardBtn"><a href="#profile">Home</a></button></li>
-        <li><button id="dashboardBtn"><a href="#progress">Profile</a></button></li>
+        <!-- <li><button id="dashboardBtn"><a href="#progress">Profile</a></button></li> -->
         <li><button id="dashboardBtn"><a href="#latihan">Latihan</a></button></li>
+        <li><button id="dashboardBtn"><a href="compiler.html">Python Compiler</a></button></li>
         <li><button id="logoutBtn">Logout</button></li>
       </ul>
       <div class="burger-menu" id="burger-menu">
@@ -271,63 +272,12 @@ else:
   
         <button id="check-code-btn-ifelse">Cek Jawaban</button>
         <div id="result-ifelse"></div>
-        
-        <h2>Latihan 3: Coba Jalankan Python</h2>
-        <p>Tulis kode Python di bawah ini, lalu klik "Jalankan Kode" untuk melihat hasilnya.</p>
-        <p>Jika sudah berhasil, coba juga buat program lain dalam bahasa Python yang sudah kamu pelajari sesuai kreativitasmu!</p>
-  
-        <textarea id="python-code" rows="10" placeholder="print('Hello, World!')"></textarea>
-        <button id="run-code-btn">Jalankan Kode</button>
-        <div id="output-container">
-          <h3>Output:</h3>
-          <pre id="output"></pre>
-        </div>
       </section>
   </main>
 
   <footer>
     <p>Virtual Python Lab by Alvin &copy; 2024</p>
   </footer>
-  <!-- Script untuk membuat python compiler pada web -->
-  <script src="https://cdn.jsdelivr.net/pyodide/v0.23.4/full/pyodide.js"></script>
-  <script>
-      async function loadPyodideAndRun() {
-      // Load Pyodide
-      let pyodide = await loadPyodide();
-      console.log("Pyodide loaded");
-
-      // Event listener untuk tombol
-      document.getElementById('run-code-btn').addEventListener('click', async function () {
-        const code = document.getElementById('python-code').value;
-        const outputElement = document.getElementById('output');
-
-        // Tangkap output dari print menggunakan sys.stdout
-        try {
-          pyodide.runPython(`
-            import sys
-            from io import StringIO
-            
-            # Tangkap output dari print
-            sys.stdout = mystdout = StringIO()
-          `);
-
-          // Jalankan kode Python dari textarea
-          await pyodide.runPythonAsync(code);
-
-          // Dapatkan output dari sys.stdout
-          const output = pyodide.runPython('mystdout.getvalue()');
-          outputElement.textContent = output;
-        } catch (error) {
-          // Tangani error syntax atau eksekusi dan tampilkan di output
-          outputElement.textContent = "Error: " + error.message;
-          console.error("Execution error:", error);
-        }
-      });
-    }
-
-    // Muat Pyodide saat halaman di-load
-    loadPyodideAndRun();
-  </script>
   <script src="dashboard.js"></script>
 </body>
 </html>
