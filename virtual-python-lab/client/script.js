@@ -110,5 +110,11 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 });
 
-
+// Tombol logout
+document.getElementById('logoutBtn').addEventListener('click', () => {
+  // Hapus token dari localStorage dan arahkan ke halaman login
+  localStorage.removeItem('access_token');
+  alert("Logout berhasil!");
+  window.location.href = "index.html";
+});
 
